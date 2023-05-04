@@ -17,7 +17,7 @@ import Loading from './base/Loading';
 import "./Teaser.scss";
 
 const Teaser = () => {
-  const persistentQuery = `wknd-shared/article-by-slug;slug=aloha-spirits-in-northern-norway`;
+  const persistentQuery = `wknd/article-by-slug;slug=aloha-spirits-in-northern-norway`;
   const {data, errorMessage} = useGraphQL(persistentQuery);
   	//If there is an error with the GraphQL query
 	if (errorMessage) return;

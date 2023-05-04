@@ -49,7 +49,7 @@ const Article = ({_path, title, synopsis, authorFragment, slug}) => {
 };
 
 const Articles = () => {
-  const persistentQuery = 'wknd-shared/articles-all';
+  const persistentQuery = 'wknd/articles-all';
 
   //Use a custom React Hook to execute the GraphQL query
   const { data, errorMessage } = useGraphQL(persistentQuery);

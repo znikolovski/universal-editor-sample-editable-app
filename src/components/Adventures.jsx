@@ -15,6 +15,7 @@ import Title from './base/Title';
 import {getPublishHost} from "../utils/fetchData";
 
 function AdventureItem(props) {
+  console.log(props)
     const editorProps = {
         itemID: "urn:aemconnection:" + props?._path + "/jcr:content/data/master",
         itemType: "reference",
@@ -22,29 +23,29 @@ function AdventureItem(props) {
     };
 
   //Must have title, path, and image
-  if(!props || !props._path || !props.title || !props.primaryImage ) {
+  if(!props || !props._path || !props.adventureTitle || !props.adventurePrimaryImage ) {
     return null;
   }
 
   return (
          <li className="adventure-item" itemScope {...editorProps}>
           <div className="adventure-image-card">
-          <Link to={`/adventure:${props.slug}${window.location.search}`}>
-            <img className="adventure-item-image" src={`${getPublishHost()}${props.primaryImage._path}`}
-                  alt={props.title} itemProp="primaryImage" itemType="image" />
+          <Link to={`/adventure:${props.adventureSlug}${window.location.search}`}>
+            <img className="adventure-item-image" src={`${getPublishHost()}${props.adventurePrimaryImage._path}`}
+                  alt={props.adventureTitle} itemProp="primaryImage" itemType="image" />
           </Link>
           </div>
-          <h3 className="adventure-item-title" itemProp="title" itemType="text">{props.title.toLowerCase()}</h3>
+          <h3 className="adventure-item-title" itemProp="title" itemType="text">{props.adventureTitle.toLowerCase()}</h3>
           <div className="adventure-item-details">
-              <div className="adventure-item-length pill default"><span itemProp="tripLength" itemType="text">{props.tripLength?.toLowerCase()}</span></div>
-              <div className="adventure-item-price pill">$<span itemProp="price" itemType="text">{props.price}</span></div>
+              <div className="adventure-item-length pill default"><span itemProp="tripLength" itemType="text">{props.adventureTripLength?.toLowerCase()}</span></div>
+              <div className="adventure-item-price pill">$<span itemProp="price" itemType="text">{props.adventurePrice}</span></div>
           </div>  
       </li>
   );
 }
 
 function Adventures() {
-  const persistentQuery = 'wknd-shared/adventures-all';
+  const persistentQuery = 'wknd/adventures-all';
   //Use a custom React Hook to execute the GraphQL query
   const { data, errorMessage } = useGraphQL(persistentQuery);
 
@@ -61,6 +62,7 @@ function Adventures() {
           {
               //Iterate over the returned data items from the query
               data.adventureList.items.map((adventure, index) => {
+                console.log("test")
                 return (
                   <AdventureItem key={index} {...adventure} />
                 );

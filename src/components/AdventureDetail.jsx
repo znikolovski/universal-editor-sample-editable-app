@@ -22,7 +22,7 @@ function AdventureDetail() {
 	const navigate = useNavigate();
 	const adventureSlug = slug.substring(1);
 
-	const persistentQuery = `wknd-shared/adventure-by-slug;slug=${adventureSlug}`;
+	const persistentQuery = `wknd/adventure-by-slug;slug=${adventureSlug}`;
 
 	//Use a custom React Hook to execute the GraphQL query
 	const {data, errorMessage} = useGraphQL(persistentQuery);
@@ -56,8 +56,8 @@ function AdventureDetail() {
             <button className="adventure-detail-back-nav dark" onClick={() => navigate(-1)}>
                 <img className="Backbutton-icon" src={backIcon} alt="Return"/> Adventures
             </button>
-            <h1 className="adventure-detail-title" itemProp="title" itemType="text">{currentAdventure.title}</h1>
-            <div className="pill default"><span itemProp="activity" itemType="text">{currentAdventure.activity}</span></div>
+            <h1 className="adventure-detail-title" itemProp="title" itemType="text">{currentAdventure.adventureTitle}</h1>
+            <div className="pill default"><span itemProp="activity" itemType="text">{currentAdventure.adventureActivity}</span></div>
         </div></div>
 		<AdventureDetailRender {...currentAdventure} references={references}/>
 	</div>
@@ -65,22 +65,22 @@ function AdventureDetail() {
 }
 
 function AdventureDetailRender({
-								   title,
-								   primaryImage,
+								   adventureTitle,
+								   adventurePrimaryImage,
 								   adventureType,
-								   tripLength,
-								   groupSize,
-								   difficulty,
-								   description,
-								   itinerary, references
+								   adventureTripLength,
+								   adventureGroupSize,
+								   adventureDifficulty,
+								   adventureDescription,
+								   adventureItinerary, references
 							   }) {
 	return (<div>
             <img className="adventure-detail-primaryimage"
-					 src={`${getPublishHost()}${primaryImage._path}`} alt={title} itemProp="primaryImage" itemType="image"/>			
+					 src={`${getPublishHost()}${adventurePrimaryImage._path}`} alt={adventureTitle} itemProp="primaryImage" itemType="image"/>			
 			<div className="adventure-detail-content">
 				
 				<div itemProp="description"
-					 itemType="richtext">{mapJsonRichText(description.json, customRenderOptions(references))}</div>
+					 itemType="richtext">{mapJsonRichText(adventureDescription.json, customRenderOptions(references))}</div>
                 <div className="adventure-detail-info">
                     <div className="adventure-detail-info-label">
                         <h6>Adventure Type</h6>
@@ -88,20 +88,20 @@ function AdventureDetailRender({
                     </div>
                     <div className="adventure-detail-info-label">
                         <h6>Trip Length</h6>
-                        <span itemProp='tripLength' itemType="text">{tripLength}</span>
+                        <span itemProp='tripLength' itemType="text">{adventureTripLength}</span>
                     </div>
                     <div className="adventure-detail-info-label">
                         <h6>Difficulty</h6>
-                        <span itemProp='difficulty' itemType="text">{difficulty}</span>
+                        <span itemProp='difficulty' itemType="text">{adventureDifficulty}</span>
                     </div>
                     <div className="adventure-detail-info-label">
                         <h6>Group Size</h6>
-                        <span itemProp='groupSize' itemType="text">{groupSize}</span>
+                        <span itemProp='groupSize' itemType="text">{adventureGroupSize}</span>
                     </div>
                 </div>
 				<h6>Itinerary</h6>
 				<div itemProp="itinerary" itemType="richtext"
-					 className="adventure-detail-itinerary">{mapJsonRichText(itinerary.json)}</div>
+					 className="adventure-detail-itinerary">{mapJsonRichText(adventureItinerary.json)}</div>
 			</div>
 
 		</div>
@@ -148,7 +148,7 @@ function customRenderOptions(references) {
 		},
 		'AdventureModel': (node) => {
 			// when __typename === AdventureModel
-			return <Link to={`/adventure:${node.slug}`}>{`${node.title}: ${node.price}`}</Link>;
+			return <Link to={`/adventure:${node.adventureSlug}`}>{`${node.title}: ${node.adventurePrice}`}</Link>;
 		}
 	};
 

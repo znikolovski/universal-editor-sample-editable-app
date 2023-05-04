@@ -32,7 +32,7 @@ import "./Home.scss";
         <section className="about-us">
           <div className="content">
             <Title itemID="urn:aemconnection:/content/wknd/us/en/about-us/jcr:content/root/container/title" itemProp="jcr:title" itemType="text"/>
-            <Container itemID="urn:aemconnection:/content/wknd/us/en/about-us/jcr:content/root/container/container" itemType="container" />       
+            <Container itemID="urn:aemconnection:/content/wknd/us/en/about-us/jcr:content/root/container" itemType="container" />       
           </div>
           <Link to={`/aboutus${window.location.search}`}>
             <button className="dark">Read more</button>
